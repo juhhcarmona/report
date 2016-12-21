@@ -63,8 +63,7 @@ function fillDataTable(dataSet) {
 }
 
 
-function isValidDate(dateString)
-{
+function isValidDate(dateString){
     // First check for the pattern
     if(!/^\d{4}-\d{1,2}-\d{1,2}$/.test(dateString))
         return false;

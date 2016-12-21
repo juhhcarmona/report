@@ -44,16 +44,11 @@
 				var data = "{{r}}"
 				data = JSON.parse(data.replace(/&quot;/g,'"'));
 
-				
-
 				dataSet = data.networks
 				url = data.next_page_url
 				total_pages = data.total_pages
 				total_rows = data.total_rows
 				$(".total_pages").html(total_pages)
-
-				console.log("total_pages: " + total_pages)
-				console.log("total_rows: " + total_rows)
 
 				if( total_rows > 0){
 					buildTable(data.networks[0])
@@ -66,11 +61,8 @@
 					$(".container").html("No Data Available")
 				 }
 				
-
 		        var count = 1
 		        $(".more").on('click', function(){
-		        	console.log("o/ = " + count + " < " + total_pages)
-
 		        	if(total_pages > 1 && count < total_pages){
 		        		if(count == 1 ) {
 			        		var new_data = loadMoreData(ctx, url)
@@ -87,7 +79,6 @@
 			        	}
 		        	}
 		        	$(".page_count").html(count)
-
 		        });
 			});
 		</script>

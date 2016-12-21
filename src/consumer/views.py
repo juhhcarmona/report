@@ -17,10 +17,12 @@ def send_request(request):
 
 	start_date = request.POST.get("start_date")
 	end_date = request.POST.get("end_date")
-	group_by = request.POST.get("group_by")
+	group_by_list = request.POST.getlist("group_by")
+	group_by = "date"
 
-	if group_by == None:
-		group_by = "date"
+	if len(group_by_list) > 0:
+		group_by = ""
+		group_by = group_by.join("%s,"%i for i in group_by_list)[:-1]
 
 	request_api = url + "?&period=custom_date" + "&start_date=" + start_date + "&end_date=" + end_date
 	request_api += "&data_type=network" + "&group_by=" + group_by

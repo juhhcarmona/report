@@ -1,0 +1,87 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Report</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+        <!-- <link rel="stylesheet" href="{% static 'css/blog.css' %}"> -->
+    </head>
+	<body>
+	    <div class="page-header">
+	        <h1><a href="/">Report</a></h1>
+	    </div>
+	    <div class="content container">
+
+	        <div class="row">
+	            <div class="col-md-12">
+
+	            
+	               <table id="example" class="display" width="100%" cellspacing="0">
+				        <thead> </thead>
+				        <tbody></tbody>
+				    </table>
+				    <button class="more">Load More Data</button> 
+				    Requested Page: <label class="page_count">1</label> of <label class="total_pages"></label>
+	            </div>
+	        </div>
+	    </div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+		<script src="{% static 'js/result.js' %}"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var ctx = "{{request.get_host}}"
+				var data = "{{r}}"
+				data = JSON.parse(data.replace(/&quot;/g,'"'));
+
+				
+
+				dataSet = data.networks
+				url = data.next_page_url
+				total_pages = data.total_pages
+				total_rows = data.total_rows
+				$(".total_pages").html(total_pages)
+
+				console.log("total_pages: " + total_pages)
+				console.log("total_rows: " + total_rows)
+
+				if( total_rows > 0){
+					buildTable(data.networks[0])
+					fillDataTable(dataSet)
+
+					//Initializing the datatable
+					$('#example').DataTable()
+				}
+				else {
+					$(".container").html("No Data Available")
+				 }
+				
+
+		        var count = 1
+		        $(".more").on('click', function(){
+		        	console.log("o/ = " + count + " < " + total_pages)
+
+		        	if(total_pages > 1 && count < total_pages){
+		        		if(count == 1 ) {
+			        		var new_data = loadMoreData(ctx, url)
+				        	count += 1
+			        	}
+			        	else {
+			        		var v_url = url.split("&")
+			        		var n_url = "https://api.libring.com/v1/reports/get?page="+ count
+			        		for(i=1; i < v_url.length; i++){
+			        			n_url += "&" + v_url[i]
+			        		} 
+			        		var new_data = loadMoreData(ctx, n_url)
+			        		count += 1
+			        	}
+		        	}
+		        	$(".page_count").html(count)
+
+		        });
+			});
+		</script>
+	</body>
+</html>

@@ -63,51 +63,32 @@ function fillDataTable(dataSet) {
 }
 
 
+function isValidDate(dateString)
+{
+    // First check for the pattern
+    if(!/^\d{4}-\d{1,2}-\d{1,2}$/.test(dateString))
+        return false;
 
+    // Parse the date parts to integers
+    var parts = dateString.split("-");
+    var day = parseInt(parts[2], 10);
+    var month = parseInt(parts[1], 10);
+    var year = parseInt(parts[0], 10);
 
+    // Check the ranges of month and year
+    if(year < 1000 || year > 3000 || month == 0 || month > 12)
+        return false;
 
+    var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
-function isDate(txtDate) {
-	console.log	(txtDate)
-	var currVal = txtDate;
-	if(currVal == '')
-		return false;
+    // Adjust for leap years
+    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+        monthLength[1] = 29;
 
-	//Declare Regex 
-	var rxDatePattern = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
-	var dtArray = currVal.match(rxDatePattern); // is format OK?
-
-	if (dtArray == null)
-		return false;
-
-	//Checks for yyyy/mm/dd - mm/dd/yyyy format.
-	dtYear = dtArray[1]; 
-	dtMonth= dtArray[5];
-	dtDay = dtArray[8];
-
-	console.log(dtYear)
-	console.log(dtMonth)
-	console.log(dtDay)
-	
-	
-
-	if (dtMonth < 1 || dtMonth > 12)
-		return false;
-
-	else if (dtDay < 1 || dtDay> 31)
-		return false;
-
-	else if ((dtMonth==4 || dtMonth==6 || dtMonth==9 || dtMonth==11) && dtDay ==31)
-		return false;
-
-	else if (dtMonth == 2)
-	{
-		var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
-		if (dtDay> 29 || (dtDay ==29 && !isleap))
-			return false;
-	}
-	return true;
+    // Check the range of the day
+    return day > 0 && day <= monthLength[month - 1];
 }
+
 
 
 

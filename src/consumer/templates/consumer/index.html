@@ -17,9 +17,11 @@
 	                <form action="{% url 'request' %}" method="POST"> {% csrf_token %}
 						Start Date:<br>
 						<input type="date" name="start_date" id="start_date" class="form-control">
+						<span class="error-start-date" style="color: red;"></span>
 						<br>
 						End Date:<br>
 						<input type="date" name="end_date" id="end_date" class="form-control">
+						<span class="error-end-date" style="color: red;"></span>
 						<br>
 
 						<label> Group by options:</label>
@@ -41,7 +43,7 @@
 						<input type="checkbox" name="group_by" value="custom_2">&nbsp;&nbsp;Custom 2
 						<br>
 						<br>
-
+						<span class="error" style="color: red;"></span>
 						<input type="submit" value="Submit" class="form-control btn-submit">
 					</form> 
 	            </div>
@@ -56,7 +58,40 @@
 				$("#end_date").datepicker();
 			    $("#start_date" ).datepicker("option", "dateFormat", "yy-mm-dd")
 			    $("#end_date" ).datepicker("option", "dateFormat", "yy-mm-dd")
-			  } );
+
+			    $(".btn-submit").click( function(evt) {
+			    	$(".error-start-date").html("")
+			    	$(".error-end-date").html("")
+			    	$(".error").html("")
+
+			    	evt.preventDefault();
+					console.log($("#start_date").val())
+					console.log($("#end_date").val())
+					if($("#start_date").val() == "" && $("#end_date").val() == "") {
+						$( "form" ).submit();
+					}
+					else{
+						d1 = isValidDate($("#start_date").val())
+						d2 = isValidDate($("#end_date").val())
+
+						if(!d1) {
+							$(".error-start-date").html("Invalid date - Format must be yyyy-mm-dd")
+						}
+						if(!d2) {
+							$(".error-end-date").html("Invalid date - Format must be yyyy-mm-dd")
+						}
+
+						if(d1 && d1){
+							if(new Date($("#start_date").val()).getTime() > new Date($("#end_date").val()).getTime()){
+							    $(".error").html("End Date must be greater than Start Date")
+							}
+							else {
+								$( "form" ).submit();
+							}
+						}
+					}
+			    })
+			} );
 			
 		</script>
 

@@ -16,15 +16,23 @@
 
 	        <div class="row">
 	            <div class="col-md-12">
-
-	            
 	               <table id="example" class="display" width="100%" cellspacing="0">
 				        <thead> </thead>
 				        <tbody></tbody>
 				    </table>
-				    <button class="more">Load More Data</button> 
-				    Requested Page: <label class="page_count">1</label> of <label class="total_pages"></label>
+				    
 	            </div>
+	        </div>
+	        <div class="row">
+	            <div class="col-md-2">
+	             	<button class="more">Load More Data</button> 
+	             </div>
+	             <div class="col-md-4">
+				    Requested Page: <label class="page_count">1</label> of <label class="total_pages"></label>
+	             </div>
+	             <div class="col-md-2">
+	             	<a href="http://{{ request.get_host }}/">Home</a>
+	             </div>
 	        </div>
 	    </div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

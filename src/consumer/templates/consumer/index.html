@@ -16,11 +16,11 @@
 	            <div class="col-md-8">
 	                <form action="{% url 'request' %}" method="POST"> {% csrf_token %}
 						Start Date:<br>
-						<input type="date" name="start_date" id="start_date" class="form-control">
+						<input type="date" name="start_date" id="start_date" class="form-control" placeholder="yyyy-mm-dd">
 						<span class="error-start-date" style="color: red;"></span>
 						<br>
 						End Date:<br>
-						<input type="date" name="end_date" id="end_date" class="form-control">
+						<input type="date" name="end_date" id="end_date" class="form-control" placeholder="yyyy-mm-dd">
 						<span class="error-end-date" style="color: red;"></span>
 						<br>
 
@@ -75,10 +75,10 @@
 						d2 = isValidDate($("#end_date").val())
 
 						if(!d1) {
-							$(".error-start-date").html("Invalid date - Format must be yyyy-mm-dd")
+							$(".error-start-date").html("Invalid date")
 						}
 						if(!d2) {
-							$(".error-end-date").html("Invalid date - Format must be yyyy-mm-dd")
+							$(".error-end-date").html("Invalid date")
 						}
 
 						if(d1 && d1){

@@ -1,6 +1,6 @@
 install-python:
 	@echo "--> Installing Python dependencies"
 	pip install -r requirements.txt
-@echo ""
+	@echo ""
 
 .PHONY: install-python

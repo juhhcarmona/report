@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <!-- <link rel="stylesheet" href="{% static 'css/blog.css' %}"> -->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     </head>
 	<body>
 	    <div class="page-header">
@@ -48,16 +48,15 @@
 	        </div>
 	    </div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="{% static 'js/result.js' %}"></script>
 		<script type="text/javascript">
-			/*$(".btn-submit").on('click', function(event){ 
-		        event.preventDefault(); 
-		        var start_date =  $('#start_date').val();
-		        if(isDate(start_date))
-		            alert('Valid Date');
-		        else
-		            alert('Invalid Date');
-			}); */
+			$( function() {
+				$("#start_date").datepicker();
+				$("#end_date").datepicker();
+			    $("#start_date" ).datepicker("option", "dateFormat", "yy-mm-dd")
+			    $("#end_date" ).datepicker("option", "dateFormat", "yy-mm-dd")
+			  } );
 			
 		</script>
 
